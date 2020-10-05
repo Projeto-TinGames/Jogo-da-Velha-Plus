@@ -86,7 +86,7 @@ def atualiza_tabuleiro(jogador,casa,pos):
         turno = 0
     
 def teste_vitoria(valor): #Testa as possibilidades de vitória
-    return teste_horizontal(valor) or teste_vertical(valor) or teste_diagonal(valor)
+    return teste_horizontal(valor) or teste_vertical(valor) or teste_diagonal_colunas(valor) or teste_diagonal_linhas(valor)
 
 def teste_horizontal(valor): #Pra cada linha ver o valor de cada coluna e comparar com o valor do jogador
     for l in range(len(casas)):
@@ -110,7 +110,7 @@ def teste_vertical(valor): #Pra cada coluna ver o valor de cada linha e comparar
             if (contador == 3):
                 return True 
 
-def teste_diagonal(valor):
+def teste_diagonal_colunas(valor):
     contador = 0
     for c in range(len(casas[0])-2):
         for l in range(len(casas)):
@@ -131,8 +131,30 @@ def teste_diagonal(valor):
                 else:
                     contador = 0
                 if (contador == 3):
-                    return True 
-        
+                    return True
+
+def teste_diagonal_linhas(valor):
+    contador = 0
+    for l in range(len(casas)-2):
+        for c in range(len(casas[0])):
+            if (l+c < len(casas)):
+                if (casas[l+c][c].valor == valor):
+                    contador += 1
+                else:
+                    contador = 0
+                if (contador == 3):
+                    return True
+
+    contador = 0
+    for l in range(len(casas)-2):
+        for c in range(len(casas[0])):
+            if (l+c < len(casas)):
+                if (casas[c+l][len(casas[0])-1-c].valor == valor):
+                    contador += 1
+                else:
+                    contador = 0
+                if (contador == 3):
+                    return True
 
 while True:
     for e in pygame.event.get():
