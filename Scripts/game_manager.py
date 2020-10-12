@@ -9,6 +9,10 @@ pygame.display.set_caption("Jogo da Velha+")
 etapa = "Batalha Naval"
 turno = 0
 
+print("")
+print("---------Início da etapa: Batalha Naval---------")
+print("")
+
 def atualiza_tela():
     tabuleiro.desenha(tela)
 
@@ -39,6 +43,9 @@ def atualiza_batalhaNaval(l,c):
         if (turno == len(jogadores)):
             turno = 0
             etapa = "Jogo da Velha"
+            print("")
+            print("---------Início da etapa: Jogo da Velha---------")
+            print("")
 
 def atualiza_jogoDaVelha(l,c):
     global turno
