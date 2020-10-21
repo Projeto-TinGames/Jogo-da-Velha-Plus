@@ -53,7 +53,8 @@ def atualiza_jogoDaVelha(jogador,l,c):
     tabuleiro.posiciona_peca(tela,l,c,jogador)
 
     for i in range(len(jogadores)):
-        jogadores[i].reduzir_casas_validas(tabuleiro.casas[l][c])
+        if (tabuleiro.casas[l][c].valor == ''):
+            jogadores[i].reduzir_casas_validas(tabuleiro.casas[l][c])
         
     #Testa vitória
     if (teste_vitoria(jogador)):
