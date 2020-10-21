@@ -1,13 +1,12 @@
 import pygame
 from pygame.locals import *
-from Scripts.class_jogador import jogadores
-from Scripts.class_tabuleiro import instancia as tabuleiro
+from Scripts.variaveis_globais import jogadores
+from Scripts.variaveis_globais import tabuleiro
+from Scripts.variaveis_globais import turno
+from Scripts.variaveis_globais import etapa
 
 tela = pygame.display.set_mode(tabuleiro.tamanho, 0, 32)
 pygame.display.set_caption("Jogo da Velha+")
-
-etapa = "Batalha Naval"
-turno = 0
 
 print("")
 print("---------Início da etapa: Batalha Naval---------")
@@ -26,7 +25,8 @@ def atualiza_jogo(l,c):
     if (etapa == "Batalha Naval"):
         atualiza_batalhaNaval(l,c)
     else:
-        atualiza_jogoDaVelha(l,c)
+        if (tabuleiro.casas[l][c].valor == '' and jogadores[turno].casasBloqueadas.count(tabuleiro.casas[l][c]) == 0):
+            atualiza_jogoDaVelha(jogadores[turno],l,c)
 
 def atualiza_batalhaNaval(l,c):
     global turno, etapa
@@ -47,30 +47,33 @@ def atualiza_batalhaNaval(l,c):
             print("---------Início da etapa: Jogo da Velha---------")
             print("")
 
-def atualiza_jogoDaVelha(l,c):
+def atualiza_jogoDaVelha(jogador,l,c):
     global turno
     
-    if (tabuleiro.casas[l][c].valor == '' and jogadores[turno].casasBloqueadas.count(tabuleiro.casas[l][c]) == 0):
-        tabuleiro.posiciona_peca(tela,l,c,jogadores[turno])
+    tabuleiro.posiciona_peca(tela,l,c,jogador)
 
-        for i in range(len(jogadores)):
-            jogadores[i].reduzir_casas_validas(tabuleiro.casas[l][c])
+    for i in range(len(jogadores)):
+        jogadores[i].reduzir_casas_validas(tabuleiro.casas[l][c])
         
-        #Testa vitória ou empate
-        if (teste_vitoria(jogadores[turno])):
-            print(jogadores[turno].valor + ' venceu')
-            pygame.quit()
-            exit()
+    #Testa vitória
+    if (teste_vitoria(jogador)):
+        print(jogador.valor + ' venceu')
+        pygame.quit()
+        exit()
+            
+    #Executa os poderes da casa
+    for i in range(len(tabuleiro.casas[l][c].poderes)):
+        tabuleiro.casas[l][c].poderes[i].executa_poder(l,c)
 
-        #Passa o turno
-        turno += 1
-        if (turno == len(jogadores)):
-            turno = 0
+    #Passa o turno
+    turno += 1
+    if (turno == len(jogadores)):
+        turno = 0
 
-        if (jogadores[turno].casasValidas <= 0):
-            print("Empate")
-            pygame.quit()
-            exit()
+    if (jogadores[turno].casasValidas <= 0):
+        print("Empate")
+        pygame.quit()
+        exit()
 
 def teste_vitoria(valor): #Testa as possibilidades de vitória
     return teste_horizontal(valor) or teste_vertical(valor) or teste_diagonal_colunas(valor) or teste_diagonal_linhas(valor)

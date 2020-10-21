@@ -21,15 +21,13 @@ class Tabuleiro:
             pygame.draw.line(tela, (255, 255, 255), (0, l*self.casas[l][0].height), (self.tamanho[1], l*self.casas[l][0].height), 10)
 
     def posiciona_peca(self,tela,l,c,jogador):
+        tela.blit(pygame.Surface([self.casas[l][c].width,self.casas[l][c].height]),[self.casas[l][c].x,self.casas[l][c].y])
+        
         imgJogador = pygame.image.load("Imagens/"+jogador.valor+".png").convert_alpha()
         imgJogador = pygame.transform.scale(imgJogador, (self.casas[l][c].width//2, self.casas[l][c].height//2))
         tela.blit(imgJogador, (self.casas[l][c].x+self.casas[l][c].width//4, self.casas[l][c].y+self.casas[l][c].height//4))
 
         self.casas[l][c].valor = jogador #Altera o valor da casa para a string do jogador (X ou O)
-
-        #Executa os poderes da casa
-        for i in range(len(self.casas[l][c].poderes)):
-            self.casas[l][c].poderes[i].executa_poder()
 
     def posiciona_poder(self,tela,l,c,jogador):
         #Desenha o poder posicionado
@@ -41,5 +39,4 @@ class Tabuleiro:
         jogador.poderes[0].posiciona_poder(self.casas[l][c])
         self.casas[l][c].poderes.append(jogador.poderes[0])
 
-quantidadeJogadores = int(input("Digite a quantidade de jogadores na partida: "))
-instancia = Tabuleiro(quantidadeJogadores)
+
