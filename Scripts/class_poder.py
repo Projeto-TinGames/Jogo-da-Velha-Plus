@@ -26,7 +26,8 @@ class Troca(Poder):
         for i in range(len(jogadoresMudarPara)):
             while jogadoresMudar[i] == jogadoresMudarPara[i]:
                 jogadoresMudarPara[i] = jogadores[random.randint(0,len(jogadores)-1)]
-                jogadores.remove(jogadoresMudarPara[i])
+                
+            jogadores.remove(jogadoresMudarPara[i])
 
         for i in range(len(jogadoresMudarPara)):
             print (jogadoresMudar[i].valor + " = " + jogadoresMudarPara[i].valor)
