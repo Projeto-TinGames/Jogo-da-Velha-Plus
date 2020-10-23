@@ -21,7 +21,7 @@ class Tabuleiro:
             pygame.draw.line(tela, (255, 255, 255), (0, l*self.casas[l][0].height), (self.tamanho[1], l*self.casas[l][0].height), 10)
 
     def posiciona_peca(self,tela,l,c,jogador):
-        tela.blit(pygame.Surface([self.casas[l][c].width,self.casas[l][c].height]),[self.casas[l][c].x,self.casas[l][c].y])
+        self.remove_peca(tela,l,c)
         
         imgJogador = pygame.image.load("Imagens/"+jogador.valor+".png").convert_alpha()
         imgJogador = pygame.transform.scale(imgJogador, (self.casas[l][c].width//2, self.casas[l][c].height//2))
@@ -38,5 +38,8 @@ class Tabuleiro:
         #Coloca o poder na casa
         jogador.poderes[0].posiciona_poder(self.casas[l][c])
         self.casas[l][c].poderes.append(jogador.poderes[0])
+
+    def remove_peca(self,tela,l,c):
+        tela.blit(pygame.Surface([self.casas[l][c].width,self.casas[l][c].height]),[self.casas[l][c].x,self.casas[l][c].y])
 
 

@@ -63,8 +63,8 @@ def atualiza_jogoDaVelha(jogador,l,c):
         exit()
             
     #Executa os poderes da casa
-    for i in range(len(tabuleiro.casas[l][c].poderes)):
-        tabuleiro.casas[l][c].poderes[i].executa_poder(l,c)
+    while len(tabuleiro.casas[l][c].poderes) > 0:
+        tabuleiro.casas[l][c].poderes[0].executa_poder(l,c)
 
     #Passa o turno
     turno += 1

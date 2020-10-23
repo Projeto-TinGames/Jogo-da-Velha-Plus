@@ -8,7 +8,7 @@ class Jogador:
         self.casasBloqueadas = []
         self.poderes = []
         for i in range(3):
-            self.poderes.append(poderes[random.randint(0,1)])
+            self.poderes.append(poderes[random.randint(0,len(poderes)-1)])
 
     def reduzir_casas_validas(self,casa):
         if (self.casasBloqueadas.count(casa) == 0):
