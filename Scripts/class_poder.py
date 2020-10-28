@@ -77,3 +77,13 @@ class Inverter_Ordem(Poder):
         
         manager.jogadores.reverse()
         manager.turno = manager.jogadores.index(jogador)
+
+class Voltar_Turno(Poder):
+    def executa_poder(self,l,c):
+        super().executa_poder(l,c)
+
+        print(manager.turno)
+        manager.cancelarPassarTurno = 1
+
+        manager.turno -= 1
+        print(manager.turno)
