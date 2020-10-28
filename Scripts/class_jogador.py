@@ -12,7 +12,7 @@ class Jogador:
 
     def reduzir_casas_validas(self,casa):
         if (self.casasBloqueadas.count(casa) == 0):
-            self.casasValidas -= 1
+            self.casasValidas -= 1 
 
     def colocar_poder(self,casa):
         print(str(type(self.poderes[0])) + " em " + str(type(casa)) + ".")

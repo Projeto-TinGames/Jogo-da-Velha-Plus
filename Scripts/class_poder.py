@@ -12,7 +12,7 @@ class Poder:
 class Repeticao(Poder):
     def executa_poder(self,l,c):
         super().executa_poder(l,c)
-        manager.turno -= 1
+        manager.cancelarPassarTurno += 1
     
 class Troca(Poder):
     def executa_poder(self,l,c):
@@ -60,4 +60,20 @@ class Remocao(Poder):
             casaRemovida = casasComValor[indexAleatoria]
             casaRemovida.valor = ''
             manager.tabuleiro.remove_peca(manager.tela, posicoesCasasComValor[indexAleatoria][0], posicoesCasasComValor[indexAleatoria][1])
+
+class Pular_Vez(Poder):
+    def executa_poder(self,l,c):
+        super().executa_poder(l,c)
         
+        manager.turno += 1
+        if (manager.turno == len(manager.jogadores)):
+            manager.turno = 0
+
+class Inverter_Ordem(Poder):
+    def executa_poder(self,l,c):
+        super().executa_poder(l,c)
+
+        jogador = manager.jogadores[manager.turno]
+        
+        manager.jogadores.reverse()
+        manager.turno = manager.jogadores.index(jogador)

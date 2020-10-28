@@ -8,7 +8,7 @@ jogadores = []
 def define_poderes():
     import Scripts.class_poder as class_poder
     global poderes
-    poderes = [class_poder.Repeticao(),class_poder.Troca(),class_poder.Remocao()]
+    poderes = [class_poder.Repeticao(),class_poder.Troca(),class_poder.Remocao(),class_poder.Pular_Vez(),class_poder.Inverter_Ordem()]
 
 def define_tabuleiro():
     import Scripts.class_tabuleiro as class_tabuleiro
