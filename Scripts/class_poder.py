@@ -7,6 +7,10 @@ class Poder:
 
     def executa_poder(self,l,c):
         manager.tabuleiro.casas[l][c].poderes.remove(self)
+        if (len(manager.poderesAtivados) == 3):
+            del manager.poderesAtivados[0]
+        manager.poderesAtivados.append(self)
+        print(len(manager.poderesAtivados))
         print("Executar: " + str(self))
 
 class Repeticao(Poder):
@@ -28,9 +32,6 @@ class Troca(Poder):
                 jogadoresMudarPara[i] = jogadores[random.randint(0,len(jogadores)-1)]
                 
             jogadores.remove(jogadoresMudarPara[i])
-
-        for i in range(len(jogadoresMudarPara)):
-            print (jogadoresMudar[i].valor + " = " + jogadoresMudarPara[i].valor)
 
         for l in range(len(manager.tabuleiro.casas)):
             for c in range(len(manager.tabuleiro.casas[l])):
@@ -82,8 +83,6 @@ class Voltar_Turno(Poder):
     def executa_poder(self,l,c):
         super().executa_poder(l,c)
 
-        print(manager.turno)
         manager.cancelarPassarTurno = 1
 
         manager.turno -= 1
-        print(manager.turno)

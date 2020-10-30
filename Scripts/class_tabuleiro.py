@@ -15,10 +15,10 @@ class Tabuleiro:
         self.casas = class_casa.define_casas(self.tamanho,self.linhas,self.colunas)
 
     def desenha(self,tela):
-        for c in range(1,len(self.casas[0])):
-            pygame.draw.line(tela, (255, 255, 255), (c*self.casas[0][c].width, 0), (c*self.casas[0][c].width, self.tamanho[0]), 10)
+        for c in range(1,len(self.casas[0])+1):
+            pygame.draw.line(tela, (255, 255, 255), (c*self.casas[0][0].width, 0), (c*self.casas[0][0].width, self.tamanho[0]), 10)
         for l in range(1,len(self.casas)):
-            pygame.draw.line(tela, (255, 255, 255), (0, l*self.casas[l][0].height), (self.tamanho[1], l*self.casas[l][0].height), 10)
+            pygame.draw.line(tela, (255, 255, 255), (0, l*self.casas[0][0].height), (self.tamanho[0], l*self.casas[0][0].height), 10)
 
     def posiciona_peca(self,tela,l,c,jogador):
         self.remove_peca(tela,l,c)

@@ -4,9 +4,12 @@ from Scripts.variaveis_globais import jogadores
 from Scripts.variaveis_globais import tabuleiro
 from Scripts.variaveis_globais import turno
 from Scripts.variaveis_globais import etapa
+import Scripts.interface as interface
 
-tela = pygame.display.set_mode(tabuleiro.tamanho, 0, 32)
+tela = pygame.display.set_mode((tabuleiro.tamanho[0]+200, tabuleiro.tamanho[1]), 0, 32)
 pygame.display.set_caption("Jogo da Velha+")
+
+poderesAtivados = []
 cancelarPassarTurno = 0
 
 print("")
@@ -14,6 +17,7 @@ print("---------Início da etapa: Batalha Naval---------")
 print("")
 
 def atualiza_tela():
+    interface.desenha(tela,jogadores[turno],etapa,poderesAtivados)
     tabuleiro.desenha(tela)
 
 def testa_pos(mouse_pos): #Testa se a casa selecionada é válida
@@ -60,7 +64,7 @@ def atualiza_jogoDaVelha(jogador,l,c):
     #Testa vitória
     if (teste_vitoria(jogador)):
         print(jogador.valor + ' venceu')
-            
+
     #Executa os poderes da casa
     while len(tabuleiro.casas[l][c].poderes) > 0:
         tabuleiro.casas[l][c].poderes[0].executa_poder(l,c)
