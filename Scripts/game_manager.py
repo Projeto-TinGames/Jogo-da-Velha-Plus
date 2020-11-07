@@ -10,6 +10,7 @@ tela = pygame.display.set_mode((tabuleiro.tamanho[0]+200, tabuleiro.tamanho[1]),
 pygame.display.set_caption("Jogo da Velha+")
 
 poderesAtivados = []
+cancelarTesteVitoria = False
 cancelarPassarTurno = 0
 
 print("")
@@ -53,21 +54,22 @@ def atualiza_batalhaNaval(l,c):
             print("")
 
 def atualiza_jogoDaVelha(jogador,l,c):
-    global turno,cancelarPassarTurno
+    global turno,cancelarPassarTurno,cancelarTesteVitoria
 
     for i in range(len(jogadores)):
         if (tabuleiro.casas[l][c].valor == ''):
             jogadores[i].reduzir_casas_validas(tabuleiro.casas[l][c])
     
     tabuleiro.posiciona_peca(tela,l,c,jogador)
-        
-    #Testa vitória
-    if (teste_vitoria(jogador)):
-        print(jogador.valor + ' venceu')
 
     #Executa os poderes da casa
     while len(tabuleiro.casas[l][c].poderes) > 0:
         tabuleiro.casas[l][c].poderes[0].executa_poder(l,c)
+        
+    #Testa vitória
+    if (cancelarTesteVitoria == False):
+        if (teste_vitoria(jogador)):
+            print(jogador.valor + ' venceu')
 
     #Passa o turno
     if (cancelarPassarTurno == 0):

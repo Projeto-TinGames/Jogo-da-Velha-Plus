@@ -10,7 +10,6 @@ class Poder:
         if (len(manager.poderesAtivados) == 3):
             del manager.poderesAtivados[0]
         manager.poderesAtivados.append(self)
-        print(len(manager.poderesAtivados))
         print("Executar: " + str(self))
 
 class Repeticao(Poder):
@@ -33,6 +32,8 @@ class Troca(Poder):
                 
             jogadores.remove(jogadoresMudarPara[i])
 
+        manager.cancelarTesteVitoria = True
+
         for l in range(len(manager.tabuleiro.casas)):
             for c in range(len(manager.tabuleiro.casas[l])):
                 if (manager.tabuleiro.casas[l][c].valor != ''):
@@ -40,6 +41,11 @@ class Troca(Poder):
                     
                     manager.atualiza_jogoDaVelha(jogadoresMudarPara[indexMudar],l,c)
                     manager.turno -= 1
+
+        manager.cancelarTesteVitoria = False
+
+        for jogador in manager.jogadores:
+            manager.teste_vitoria(jogador)
 
 class Remocao(Poder):
     def executa_poder(self,l,c):
