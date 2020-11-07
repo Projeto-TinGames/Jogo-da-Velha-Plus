@@ -1,6 +1,6 @@
 import pygame
 
-def desenha(tela,jogador,etapa,poderesAtivados):
+def desenha(tela,jogador,etapa,poderesAtivados): #Desenha UI
     tela.blit(pygame.Surface([200,600]),[600,0])
     desenhaTurno(tela,jogador)
     desenhaPoderes(tela,jogador,etapa,poderesAtivados)
